@@ -39,19 +39,19 @@ Route::get('/world', function () {
 
 Route::get('/products/{id}', function ($produkId) {
     return "Products : " . $produkId;
-});
+})->name('product.detail');
 
 Route::get('/products/{id}/items/{item}', function ($produkId, $itemId) {
     return "Products : " . $produkId . " Items : " . $itemId;
-});
+})->name('product.item.detail');
 
 Route::get('/categories/{id}', function (string $categoryId) {
     return "Categories : " . $categoryId;
-})->where('id', '[0-9]+');
+})->where('id', '[0-9]+')->name('category.detail');
 
 Route::get('users/{id?}', function (string $userId = '404') {
     return "Users : " . $userId;
-});
+})->name('user.detail');
 
 Route::get('conflict/{name}', function ($name) {
     return "Conflict " . $name;
@@ -59,4 +59,17 @@ Route::get('conflict/{name}', function ($name) {
 
 Route::get('conflict/miftah', function () {
     return "Conflict Miftah";
+});
+
+Route::get('/produk/{id}', function ($id) {
+    $link = route('product.detail', [
+        'id'    => $id
+    ]);
+    return "Link : " . $link;
+});
+
+Route::get('/produk-redirect/{id}', function ($id) {
+    return redirect()->route('product.detail', [
+        'id'    => $id
+    ]);
 });
