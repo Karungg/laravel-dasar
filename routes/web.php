@@ -26,3 +26,13 @@ Route::redirect('/youtube', '/pzn');
 Route::fallback(function () {
     return "404";
 });
+
+Route::view('/hello', 'hello', ['name' => 'Miftah Fadilah']);
+
+Route::get('/hello-again', function () {
+    return view('hello', ['name' => 'Miftah Fadilah']);
+});
+
+Route::get('/world', function () {
+    return view('hello.world', ['name' => 'Gadis Syalwa Dedisyah Putri']);
+});
