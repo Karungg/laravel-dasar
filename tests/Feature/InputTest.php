@@ -48,4 +48,15 @@ class InputTest extends TestCase
         ])->assertSeeText("Iphone 14 Pro Max")
             ->assertSeeText("Samsung Galaxy S23 Ultra");
     }
+
+    public function testInputType()
+    {
+        $this->post('/input/type', [
+            'name'  => 'Miftah',
+            'married'   => 'true',
+            'birth_date'    => '2004-11-27'
+        ])->assertSeeText('Miftah')
+            ->assertSeeText('true')
+            ->assertSeeText('2004-11-27');
+    }
 }
