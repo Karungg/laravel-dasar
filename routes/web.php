@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\InputController;
 use App\Http\Controllers\RedirectController;
@@ -123,3 +124,6 @@ Route::get('/redirect/away', [RedirectController::class, 'redirectAway']);
 Route::get('/middleware/api', function () {
     return "OK";
 })->middleware(['contoh:PZN,401']);
+
+Route::get('/form', [FormController::class, 'form']);
+Route::post('/form', [FormController::class, 'submitForm']);
