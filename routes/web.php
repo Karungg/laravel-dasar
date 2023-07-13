@@ -10,6 +10,7 @@ use App\Http\Controllers\ResponseController;
 use App\Http\Middleware\ContohMiddleware;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,7 +122,11 @@ Route::controller(CookieController::class)->group(function () {
 Route::get('/redirect/from', [RedirectController::class, 'redirectFrom']);
 Route::get('/redirect/to', [RedirectController::class, 'redirectTo']);
 Route::get('/redirect/name', [RedirectController::class, 'redirectName']);
-Route::get('/redirect/name/{name}', [RedirectController::class, 'redirectHello'])->name('redirect-hello');
+Route::get('/redirect/name/{name}', [RedirectController::class, 'redirectHello'])
+    ->name('redirect-hello');
+Route::get('url/named', function () {
+    return route('redirect-hello', ['name'  => "Miftah"]);
+});
 Route::get('/redirect/action', [RedirectController::class, 'redirectAction']);
 Route::get('/redirect/away', [RedirectController::class, 'redirectAway']);
 
@@ -131,5 +136,12 @@ Route::middleware(['contoh:PZN,401'])->prefix('/middleware')->group(function () 
     });
 });
 
+Route::get('/url/action', function () {
+    return action([FormController::class], []);
+});
 Route::get('/form', [FormController::class, 'form']);
 Route::post('/form', [FormController::class, 'submitForm']);
+
+Route::get('url/current', function () {
+    return URL::full();
+});
