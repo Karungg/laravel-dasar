@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -12,6 +13,10 @@ class Handler extends ExceptionHandler
      *
      * @var array<int, string>
      */
+    protected $dontReport = [
+        ValidationException::class
+    ];
+
     protected $dontFlash = [
         'current_password',
         'password',
@@ -24,7 +29,15 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
+            // var_dump($e);
+        });
+
+        $this->reportable(function (\Exception $exception) {
+            var_dump($exception);
+        });
+
+        $this->renderable(function (ValidationException $exception, Request $request) {
+            return response("Bad Request", 404);
         });
     }
 }
